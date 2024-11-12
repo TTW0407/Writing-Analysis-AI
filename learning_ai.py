@@ -24,20 +24,37 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 #Create Model
 model = genai.GenerativeModel("gemini-1.5-flash",
-                              system_instruction=f"""请用{language}语言来回答所有问题。
-                              完成以下任务：
- 1. 语法与拼写检查：
-     - 分析用户输入的文本，并标记所有语法、拼写和标点错误。
-     - 尝试纠正这些错误，并提供修改后的文本。
-     - 为文本的语法和拼写质量评分，评分范围为 0 到 10 分。
- 2. 结构和逻辑建议：
-     - 分析用户输入的文本的结构和逻辑流。
-     - 提供建议以帮助用户改善段落结构和逻辑流，让写作更连贯。
-     - 为文本的结构和逻辑质量评分，评分范围为 0 到 10 分。
-     提供优化和修改后的完整文本：""",
+                              system_instruction=f"""Please communicate with users in {language}, 
+                                
+                              Complete the following tasks:
+ 1. Grammar and spelling check:
+     - Analyze the user input text and identify all grammatical, spelling, and punctuation errors.
+     - Try to correct these errors and provide the revised text.
+     - Rate the grammar and spelling quality of the text on a scale of 0 to 10.
+ 2. Structure and logic suggestions:
+     - Analyze the structure and logical flow of the user input text.
+     - Provide suggestions to help the user improve the paragraph structure and logical flow to make writing more coherent.
+     - Rate the structure and logic quality of the text on a scale of 0 to 10.
+ 3. Final text:
+    - Provide the fully optimized and revised text in a new paragraph, preserving the tone and style of the original for comparison.""",
                               )
 
+# page_bg_img = f"""
+# <style>
+# [data-testid="stAppViewContainer"] > .main {{
+# background-image: url("https://i.postimg.cc/d34QXdDD/application-pc-and-smartphone-with-business-vector-29570430.jpg");
+# background-size: cover;
+# background-position: center center;
+# background-repeat: no-repeat;
+# background-attachment: local;
+# }}
+# [data-testid="stHeader"] {{
+# background: rgba(0,0,0,0);
+# }}
+# </style>
+# """
 
+# st.markdown(page_bg_img, unsafe_allow_html=True)
 
 def main():
     
@@ -65,7 +82,7 @@ def main():
         st.session_state.messages = [
             {
                 "role": "assistant",
-                "content": "Hello! I'm here to enhance your writing with grammar, spelling, and structure tips. Ask me anything!"
+                "content": "**Hello!** I'm here to **Enhance** your **Writing** with:\n- **Grammar Tips**\n- **Spelling Tips**\n- **Structure Tips**\n\nAsk me anything!"
             }
         ]
 
@@ -121,7 +138,7 @@ def main():
             st.markdown(query)
         
         
-        # 将所有历史信息拼接起来
+        # Stitching Historical Information
         full_query = "\n".join([message["content"] for message in st.session_state.messages])
         full_query += f"\n{query}"
         llm_function(full_query)
