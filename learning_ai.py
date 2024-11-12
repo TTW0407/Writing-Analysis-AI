@@ -10,9 +10,7 @@ load_dotenv()
 st.title("📑 Writing Analysis AI")
 
 #Language Select
-language = st.selectbox("Select Response Language", ["English", "Chinese", "Malay"])
-
-
+language = st.selectbox("Select Response Language🌐", ["English", "Chinese", "Malay"])
 
 #Temperature
 temperature = st.slider("Creative Range💡", min_value=0.1, max_value=2.0, value=1.0, step=0.1)
@@ -107,7 +105,7 @@ def main():
             }
         )
 
-
+    
 
 
     # User Input
@@ -122,8 +120,13 @@ def main():
         with st.chat_message("user"):
             st.markdown(query)
         
+        
+        # 将所有历史信息拼接起来
+        full_query = "\n".join([message["content"] for message in st.session_state.messages])
+        full_query += f"\n{query}"
+        llm_function(full_query)
 
-        llm_function(query)
+        # llm_function(query)
 
         
 
