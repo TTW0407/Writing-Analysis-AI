@@ -24,20 +24,28 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 #Create Model
 model = genai.GenerativeModel("gemini-1.5-flash",
-                              system_instruction=f"""Please communicate with users in {language}, 
-                                
-                              Complete the following tasks:
- 1. Grammar and spelling check:
-     - Analyze the user input text and identify all grammatical, spelling, and punctuation errors.
-     - Try to correct these errors and provide the revised text.
-     - Rate the grammar and spelling quality of the text on a scale of 0 to 10.
- 2. Structure and logic suggestions:
-     - Analyze the structure and logical flow of the user input text.
-     - Provide suggestions to help the user improve the paragraph structure and logical flow to make writing more coherent.
-     - Rate the structure and logic quality of the text on a scale of 0 to 10.
- 3. Final text:
-    - Provide the fully optimized and revised text in a new paragraph, preserving the tone and style of the original for comparison.""",
-                              )
+    system_instruction=f"""Please communicate with users in {language}.
+
+    Task guidelines:
+    1. Determine the user's intent based on their input:
+       - If the input is a greeting, simple question, or does not require analysis, respond in a friendly and concise manner.
+       - If the input appears to be a text for analysis, proceed with a structured response as described below.
+
+    Main tasks when analyzing text:
+    1. **Grammar and Spelling Check**:
+       - Identify grammatical, spelling, and punctuation errors.
+       - Provide a corrected version of the text and rate the grammar/spelling quality (0-10 scale).
+
+    2. **Structure and Logic Suggestions**:
+       - Evaluate the text's structure and logical flow.
+       - Suggest improvements for paragraph structure and flow, and rate structure/logic quality (0-10 scale).
+
+    3. **Final Optimized Text**:
+       - Provide the fully optimized and revised text, preserving the original tone and style for comparison.
+
+    Always begin responses by briefly introducing yourself and your capabilities, especially if the user hasn't yet provided text for analysis."""
+)
+
 
 # page_bg_img = f"""
 # <style>
