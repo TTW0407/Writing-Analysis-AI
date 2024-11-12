@@ -6,10 +6,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Title
+st.title("📑 Writing Analysis AI")
 
+#Language Select
+language = st.selectbox("Select Response Language", ["English", "Chinese", "Malay"])
+
+
+
+#Temperature
+temperature = st.slider("Creative Range💡", min_value=0.1, max_value=2.0, value=1.0, step=0.1)
+
+
+
+# Config API Key
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
-language = st.selectbox("Choose Language", ["English", "Chinese", "Malay"])
 
 
 #Create Model
@@ -30,14 +42,7 @@ model = genai.GenerativeModel("gemini-1.5-flash",
 
 
 def main():
-    # Title
-    st.title("📑 Writing Analysis AI")
     
-
-    #Temperature
-    temperature = st.slider("Temperature", min_value=0.1, max_value=2.0, value=1.0, step=0.1)
-
-
 
     # Content Generate
     def generate_content(query, temperature, language):
