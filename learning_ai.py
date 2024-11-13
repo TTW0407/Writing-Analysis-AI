@@ -23,7 +23,7 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 
 #Create Model
-model = genai.GenerativeModel("gemini-1.5-pro",
+model = genai.GenerativeModel("gemini-1.5-flash",
     system_instruction=f"""Please communicate with users in {language}.
 
     Task guidelines:
