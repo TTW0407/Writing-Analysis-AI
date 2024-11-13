@@ -71,7 +71,7 @@ def main():
     def generate_content(query, temperature, language):
         generation_config = genai.types.GenerationConfig(
             temperature=temperature,
-            max_output_tokens=8192,
+            max_output_tokens=512,
             top_p=0.95,
             top_k=40,
         )
